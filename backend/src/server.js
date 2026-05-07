@@ -15,11 +15,9 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin: [
-      'http://localhost:5173',
-      'https://team-task-manager-five-sepia.vercel.app',
-    ],
-    credentials: true,
+    origin: '*',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
@@ -33,7 +31,8 @@ app.use('/api/tasks', taskRoutes);
 
 // Test Route
 app.get('/', (req, res) => {
-  res.json({
+  res.status(200).json({
+    success: true,
     message: 'Backend Running Successfully',
   });
 });
@@ -44,14 +43,12 @@ mongoose
   .then(() => {
     console.log('MongoDB Connected');
 
-    app.listen(process.env.PORT || 5000, () => {
-      console.log(
-        `Server Running on Port ${
-          process.env.PORT || 5000
-        }`
-      );
+    const PORT = process.env.PORT || 5000;
+
+    app.listen(PORT, '0.0.0.0', () => {
+      console.log(`Server Running on Port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.log(err);
+    console.log('MongoDB Error:', err);
   });
