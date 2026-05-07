@@ -25,7 +25,7 @@ function Register() {
 
     alert('Registration Successful');
 
-    window.location.href = '/login';
+    window.location.href = '/';
   };
 
   return (
