@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 
-import API from '../services/api';
-
 function Register() {
   const [name, setName] = useState('');
 
@@ -14,23 +12,20 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await API.post('/auth/register', {
-        name,
-        email,
-        password,
-        role,
-      });
+    const userData = {
+      name,
+      email,
+      role,
+    };
 
-      localStorage.setItem(
-        'user',
-        JSON.stringify(res.data)
-      );
+    localStorage.setItem(
+      'user',
+      JSON.stringify(userData)
+    );
 
-      alert('Registration Successful');
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+    alert('Registration Successful');
+
+    window.location.href = '/login';
   };
 
   return (
@@ -50,6 +45,8 @@ function Register() {
           padding: '40px',
           borderRadius: '12px',
           width: '350px',
+          boxShadow:
+            '0px 4px 10px rgba(0,0,0,0.1)',
         }}
       >
         <h1 style={{ marginBottom: '20px' }}>
@@ -63,6 +60,7 @@ function Register() {
           onChange={(e) =>
             setName(e.target.value)
           }
+          required
           style={{
             width: '100%',
             padding: '12px',
@@ -77,6 +75,7 @@ function Register() {
           onChange={(e) =>
             setEmail(e.target.value)
           }
+          required
           style={{
             width: '100%',
             padding: '12px',
@@ -91,6 +90,7 @@ function Register() {
           onChange={(e) =>
             setPassword(e.target.value)
           }
+          required
           style={{
             width: '100%',
             padding: '12px',
@@ -119,6 +119,7 @@ function Register() {
         </select>
 
         <button
+          type='submit'
           style={{
             width: '100%',
             padding: '12px',
@@ -126,6 +127,7 @@ function Register() {
             color: 'white',
             border: 'none',
             borderRadius: '8px',
+            cursor: 'pointer',
           }}
         >
           Register

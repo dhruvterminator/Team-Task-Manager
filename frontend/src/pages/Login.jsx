@@ -1,29 +1,31 @@
 import React, { useState } from 'react';
 
-import API from '../services/api';
-
 function Login() {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [password, setPassword] =
+    useState('');
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    try {
-      const res = await API.post('/auth/login', {
-        email,
-        password,
-      });
+    const userData = {
+      email,
+    };
 
-      localStorage.setItem(
-        'user',
-        JSON.stringify(res.data)
-      );
+    localStorage.setItem(
+      'user',
+      JSON.stringify(userData)
+    );
 
-      alert('Login Successful');
-    } catch (error) {
-      alert(error.response.data.message);
-    }
+    localStorage.setItem(
+      'token',
+      'demo-token'
+    );
+
+    alert('Login Successful');
+
+    window.location.href = '/';
   };
 
   return (
@@ -43,6 +45,8 @@ function Login() {
           padding: '40px',
           borderRadius: '12px',
           width: '350px',
+          boxShadow:
+            '0px 4px 10px rgba(0,0,0,0.1)',
         }}
       >
         <h1 style={{ marginBottom: '20px' }}>
@@ -56,6 +60,7 @@ function Login() {
           onChange={(e) =>
             setEmail(e.target.value)
           }
+          required
           style={{
             width: '100%',
             padding: '12px',
@@ -70,6 +75,7 @@ function Login() {
           onChange={(e) =>
             setPassword(e.target.value)
           }
+          required
           style={{
             width: '100%',
             padding: '12px',
@@ -78,6 +84,7 @@ function Login() {
         />
 
         <button
+          type='submit'
           style={{
             width: '100%',
             padding: '12px',
@@ -85,6 +92,7 @@ function Login() {
             color: 'white',
             border: 'none',
             borderRadius: '8px',
+            cursor: 'pointer',
           }}
         >
           Login
