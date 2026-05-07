@@ -15,8 +15,10 @@ const app = express();
 // Middleware
 app.use(
   cors({
-    origin:
+    origin: [
+      'http://localhost:5173',
       'https://team-task-manager-five-sepia.vercel.app',
+    ],
     credentials: true,
   })
 );
