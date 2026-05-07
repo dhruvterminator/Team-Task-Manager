@@ -13,7 +13,14 @@ dotenv.config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(
+  cors({
+    origin:
+      'https://team-task-manager-five-sepia.vercel.app',
+    credentials: true,
+  })
+);
+
 app.use(express.json());
 app.use(helmet());
 app.use(morgan('dev'));
@@ -37,7 +44,9 @@ mongoose
 
     app.listen(process.env.PORT || 5000, () => {
       console.log(
-        `Server Running on Port ${process.env.PORT || 5000}`
+        `Server Running on Port ${
+          process.env.PORT || 5000
+        }`
       );
     });
   })
