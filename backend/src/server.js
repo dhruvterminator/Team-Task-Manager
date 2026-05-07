@@ -33,6 +33,30 @@ app.post('/api/tasks', (req, res) => {
   res.json(newTask);
 });
 
+// UPDATE TASK
+app.put('/api/tasks/:id', (req, res) => {
+  tasks = tasks.map((task) =>
+    task._id == req.params.id
+      ? { ...task, ...req.body }
+      : task
+  );
+
+  res.json({
+    message: 'Task Updated',
+  });
+});
+
+// DELETE TASK
+app.delete('/api/tasks/:id', (req, res) => {
+  tasks = tasks.filter(
+    (task) => task._id != req.params.id
+  );
+
+  res.json({
+    message: 'Task Deleted',
+  });
+});
+
 // TEST ROUTE
 app.get('/', (req, res) => {
   res.json({
