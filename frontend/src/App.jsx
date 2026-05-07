@@ -89,7 +89,7 @@ function App() {
             fontSize: '42px',
           }}
         >
-          Team Task Manager 🚀
+          Team Task Manager App 🚀
         </h1>
 
         <div>
